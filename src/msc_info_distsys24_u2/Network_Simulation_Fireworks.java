@@ -1,23 +1,36 @@
-package org.oxoo2a.sim4da;
+package msc_info_distsys24_u2;
+
+import org.oxoo2a.sim4da.Message;
+import org.oxoo2a.sim4da.Node;
+import org.oxoo2a.sim4da.Simulator;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class Network_Simulation_Fireworks {
+    //==========================================================================================
+    // Main method
+    //==========================================================================================
     public static void main(String[] args) {
-        final int numActors = 5;
+        final int numActors = 10;
         Simulator simulator = Simulator.getInstance();
         LinkedList<String> networkActors = new LinkedList<>();
-        for (int i=0; i<numActors; i++) {
-            new ActorNode(String.format("Actor %d",i),networkActors);
+        for (int i = 0; i < numActors; i++) {
+            new ActorNode(String.format("Actor-%d", i), networkActors);
         }
         simulator.simulate(60);
         simulator.shutdown();
     }
 
-
+    //==========================================================================================
+    // Class ActorNode
+    //==========================================================================================
+    /** Class ActorNode
+     * Defines an actor according to '2024S Ubung DS02.pdf', 'Aufgabe 2'.
+     */
     public static class ActorNode extends Node {
+        /** Class Variables */
         boolean active;
         double sendProbability;
         LinkedList<String> networkActors;
@@ -36,6 +49,9 @@ public class Network_Simulation_Fireworks {
             networkActors.add(name);
         }
 
+        /** Method engage
+         * Engage method of ActorNode.
+         */
         @Override
         public void engage() {
             Message receiveMsg;
@@ -54,7 +70,7 @@ public class Network_Simulation_Fireworks {
             }
         }
 
-        /** Method sentToSubset
+        /** Method sendToSubset
          * Sends a message to a random subset of 'networkActors'.
          * @param message the message to be sent
          */

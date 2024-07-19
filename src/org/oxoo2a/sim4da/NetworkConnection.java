@@ -20,6 +20,7 @@ public class NetworkConnection {
     public void engage ( Runnable node_main ) {
         this.node_main = node_main;
         thread = new Thread(this::node_main_base);
+        thread.setDaemon(true);
         thread.start();
     }
 
